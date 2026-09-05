@@ -5,6 +5,7 @@
 * 10/10/2019
 * Copyright(c) 2019 PLTW to present. All rights reserved
 */
+
 import java.util.Scanner;
 
 /**
@@ -44,6 +45,7 @@ public class EscapeRoom
     System.out.println("Welcome to EscapeRoom!");
     System.out.println("Get to the other side of the room, avoiding walls and invisible traps,");
     System.out.println("pick up all the prizes.\n");
+
     
     GameGUI game = new GameGUI();
     game.createBoard();
@@ -65,19 +67,41 @@ public class EscapeRoom
     boolean play = true;
     while (play)
     {
+      System.out.println("LOOP STARTED");
+      String userInput = UserInput.getValidInput(validCommands);
+      if (userInput.equalsIgnoreCase("right")|| userInput.equalsIgnoreCase("r")){
+        px = m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("left")|| userInput.equalsIgnoreCase("l")){
+        px = -m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("down")|| userInput.equalsIgnoreCase("d")){
+        px=0;
+        py = m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("up")|| userInput.equalsIgnoreCase("u")){
+        px=0;
+        py = -m;
+        game.movePlayer(px,py);
+      }
       /* TODO: get all the commands working */
 	  /* Your code here */
+   
+      px =0;
+      py=0;
     
-      
-    }
 
   
-
+    }
     score += game.endGame();
+  
 
     System.out.println("score=" + score);
     System.out.println("steps=" + game.getSteps());
+
+
   }
 }
-
-        
