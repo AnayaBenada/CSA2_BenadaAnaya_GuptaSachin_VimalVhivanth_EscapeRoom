@@ -87,6 +87,25 @@ public class EscapeRoom
         py = -m;
         game.movePlayer(px,py);
       }
+      else if (userInput.equalsIgnoreCase("jumpright")|| userInput.equalsIgnoreCase("jr")){
+        px = 2*m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("jumpleft")|| userInput.equalsIgnoreCase("jl")){
+        px = -2*m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("jumpdown")|| userInput.equalsIgnoreCase("jd")){
+        px=0;
+        py = 2*m;
+        game.movePlayer(px,py);
+      }
+      else if (userInput.equalsIgnoreCase("jumpup")|| userInput.equalsIgnoreCase("ju")){
+        px=0;
+        py = -2*m;
+        game.movePlayer(px,py);
+      }
+      
       /* TODO: get all the commands working */
 	  /* Your code here */
    
