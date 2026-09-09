@@ -109,10 +109,12 @@ public class EscapeRoom
 	  /* Your code here */
 
     score+= game.springTrap(px,py);
+    
+    px =0;
+    py=0;
     }
    
-      px =0;
-      py=0;
+
   
     }
     score += game.endGame();
