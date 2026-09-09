@@ -105,6 +105,20 @@ public class EscapeRoom
         py = -2*m;
         game.movePlayer(px,py);
       }
+      else if (userInput.equalsIgnoreCase("pickup")|| userInput.equalsIgnoreCase("p")){
+        
+        score += game.pickupPrize();
+      }
+      else if (userInput.equalsIgnoreCase("quit")|| userInput.equalsIgnoreCase("q")){
+        play = false;
+      }
+      else if (userInput.equalsIgnoreCase("replay")){
+        game.replay();
+      }
+      else if (userInput.equalsIgnoreCase("help")|| userInput.equalsIgnoreCase("?")){
+        System.out.println("Valid commands are: right, left, up, down, r, l, u, d, jump, jr, jumpleft, jl, jumpup, ju, jumpdown, jd, pickup, p, quit, q, replay, help");
+      }
+
       
       /* TODO: get all the commands working */
 	  /* Your code here */
