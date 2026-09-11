@@ -72,50 +72,51 @@ public class EscapeRoom
       if (userInput.equalsIgnoreCase("right")|| userInput.equalsIgnoreCase("r")){
         px = m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("left")|| userInput.equalsIgnoreCase("l")){
         px = -m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("down")|| userInput.equalsIgnoreCase("d")){
         px=0;
         py = m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("up")|| userInput.equalsIgnoreCase("u")){
         px=0;
         py = -m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("jumpright")|| userInput.equalsIgnoreCase("jr")){
         px = 2*m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("jumpleft")|| userInput.equalsIgnoreCase("jl")){
         px = -2*m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("jumpdown")|| userInput.equalsIgnoreCase("jd")){
         px=0;
         py = 2*m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("jumpup")|| userInput.equalsIgnoreCase("ju")){
         px=0;
         py = -2*m;
         game.movePlayer(px,py);
-        score++;
+        score--;
       }
       else if (userInput.equalsIgnoreCase("pickup")|| userInput.equalsIgnoreCase("p")){
         
         score += game.pickupPrize();
+        System.out.println("You picked up a prize! Score: " + score);
       }
       else if (userInput.equalsIgnoreCase("quit")|| userInput.equalsIgnoreCase("q")){
         play = false;
