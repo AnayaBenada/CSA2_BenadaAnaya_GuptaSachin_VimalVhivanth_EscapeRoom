@@ -116,7 +116,8 @@ public class EscapeRoom
       else if (userInput.equalsIgnoreCase("pickup")|| userInput.equalsIgnoreCase("p")){
         
         score += game.pickupPrize();
-        System.out.println("You picked up a prize! Score: " + score);
+        System.out.println("Score: " + score);
+        PlaySound.main(new String[0]);
       }
       else if (userInput.equalsIgnoreCase("quit")|| userInput.equalsIgnoreCase("q")){
         play = false;

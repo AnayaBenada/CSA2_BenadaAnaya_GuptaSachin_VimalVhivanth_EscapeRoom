@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 
 import java.util.Random;
 
+import javax.sound.sampled.*;
+
 /**
  * A Game board on which to place and move players.
  * 
@@ -275,7 +277,7 @@ public class GameGUI extends JComponent
       // if location has a prize, pick it up
       if (p.getWidth() > 0 && p.contains(px, py))
       {
-        System.out.println("YOU PICKED UP A PRIZE!");
+        
         p.setSize(0,0);
         repaint();
         return prizeVal;
@@ -502,5 +504,12 @@ public class GameGUI extends JComponent
     }
     return score;
   
+
   }
 }
+  
+
+
+
+
+
