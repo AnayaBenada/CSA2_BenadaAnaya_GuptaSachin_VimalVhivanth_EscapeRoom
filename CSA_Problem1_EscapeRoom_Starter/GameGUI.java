@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -19,7 +21,7 @@ import java.util.Random;
  * @author PLTW
  * @version 1.0
  */
-public class GameGUI extends JComponent
+public class GameGUI extends JComponent implements KeyListener
 {
   static final long serialVersionUID = 141L; // problem 1.4.1
 
@@ -97,6 +99,10 @@ public class GameGUI extends JComponent
     frame.add(this);
     frame.setVisible(true);
     frame.setResizable(false); 
+
+    setFocusable(true);
+    addKeyListener(this);
+    requestFocusInWindow();
 
     // set default config
     totalWalls = 20;
@@ -188,6 +194,28 @@ public class GameGUI extends JComponent
       y += incry;
       repaint();   
       return 0;   
+  }
+
+  public void keyPressed(KeyEvent e)
+  {
+    if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+      movePlayer(SPACE_SIZE, 0);
+    else if (e.getKeyCode() == KeyEvent.VK_LEFT)
+      movePlayer(-SPACE_SIZE, 0);
+    else if (e.getKeyCode() == KeyEvent.VK_DOWN)
+      movePlayer(0, SPACE_SIZE);
+    else if (e.getKeyCode() == KeyEvent.VK_UP)
+      movePlayer(0, -SPACE_SIZE);
+    else if (e.getKeyCode() == KeyEvent.VK_SPACE)
+      pickupPrize();
+  }
+
+  public void keyReleased(KeyEvent e)
+  {
+  }
+
+  public void keyTyped(KeyEvent e)
+  {
   }
 
   /**

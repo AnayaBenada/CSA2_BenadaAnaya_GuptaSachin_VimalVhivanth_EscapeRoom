@@ -125,7 +125,7 @@ public class EscapeRoom
         game.replay();
       }
       else if (userInput.equalsIgnoreCase("help")|| userInput.equalsIgnoreCase("?")){
-        System.out.println("Valid commands are: right, left, up, down, r, l, u, d, jump, jr, jumpleft, jl, jumpup, ju, jumpdown, jd, pickup, p, quit, q, replay, help");
+        System.out.println("Valid commands are: up key, down key, right key, left key, space bar, right, left, up, down, r, l, u, d, jump, jr, jumpleft, jl, jumpup, ju, jumpdown, jd, pickup, p, quit, q, replay, help");
       }
       else {
         System.out.println("Invalid command. Type 'help' or '?' for a list of valid commands.");
