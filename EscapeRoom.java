@@ -1,0 +1,221 @@
+/*
+* Problem 1: Escape Room
+* 
+* V1.0
+* 10/10/2019
+* Copyright(c) 2019 PLTW to present. All rights reserved
+*/
+
+import java.util.Scanner;
+// UNIQUE FEATURES: Arrow Keys for movements, Space bar for picking up a coin
+/**
+ * Create an escape room game where the player must navigate
+ * to the other side of the screen in the fewest steps, while
+ * avoiding obstacles and collecting prizes.
+ */
+public class EscapeRoom
+{
+
+      // describe the game with brief welcome message
+      // determine the size (length and width) a player must move to stay within the grid markings
+      // Allow game commands:
+      //    right, left, up, down: if you try to go off grid or bump into wall, score decreases
+      //    jump over 1 space: you cannot jump over walls
+      //    if you land on a trap, spring a trap to increase score: you must first check if there is a trap, if none exists, penalty
+      //    pick up prize: score increases, if there is no prize, penalty
+      //    help: display all possible commands
+      //    end: reach the far right wall, score increase, game ends, if game ended without reaching far right wall, penalty
+      //    replay: shows number of player steps and resets the board, you or another player can play the same board
+      // Note that you must adjust the score with any method that returns a score
+      // Optional: create a custom image for your player use the file player.png on disk
+    
+      /**** provided code:
+      // set up the game
+      boolean play = true;
+      while (play)
+      {
+        // get user input and call game methods to play 
+        play = false;
+      }
+      */
+// 
+  private static void printScore(int score)
+  {
+    System.out.println("Current score: " + score);
+  }
+
+  public static void main(String[] args) 
+  {      
+    // welcome message
+    System.out.println("Welcome to EscapeRoom!");
+    System.out.println("Get to the other side of the room, avoiding walls and invisible traps,");
+    System.out.println("pick up all the prizes.\n");
+
+    
+    GameGUI game = new GameGUI();
+
+    // size of move
+    int m = 60; 
+    // individual player moves
+    int px = 0;
+    int py = 0; 
+    
+    int score = 0;
+
+    String[] validCommands = { "right", "left", "up", "down", "r", "l", "u", "d",
+    "jump", "jr", "jumpleft", "jl", "jumpup", "ju", "jumpdown", "jd",
+    "pickup", "p", "quit", "q", "replay", "help", "?",
+    // additional player actions
+    "spring", "s", "status", "look", "wait", "w" };
+  
+    boolean wonByWinSquare = false;
+
+    // set up game
+    boolean play = true;
+    while (play)
+    {
+      String userInput = UserInput.getValidInput(validCommands);
+      boolean moved = false;
+      if (userInput.equalsIgnoreCase("right")|| userInput.equalsIgnoreCase("r")){
+        px = m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("left")|| userInput.equalsIgnoreCase("l")){
+        px = -m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("down")|| userInput.equalsIgnoreCase("d")){
+        px=0;
+        py = m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("up")|| userInput.equalsIgnoreCase("u")){
+        px=0;
+        py = -m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("jumpright")|| userInput.equalsIgnoreCase("jr")){
+        px = 2*m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("jumpleft")|| userInput.equalsIgnoreCase("jl")){
+        px = -2*m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("jumpdown")|| userInput.equalsIgnoreCase("jd")){
+        px=0;
+        py = 2*m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("jumpup")|| userInput.equalsIgnoreCase("ju")){
+        px=0;
+        py = -2*m;
+        score += game.movePlayer(px,py);
+        moved = true;
+        printScore(score);
+      }
+      else if (userInput.equalsIgnoreCase("pickup")|| userInput.equalsIgnoreCase("p")){
+        
+        score += game.pickupPrize();
+        System.out.println("You picked up a prize! Score: " + score);
+      }
+      // spring a trap at the player's current location (or nearby)
+      else if (userInput.equalsIgnoreCase("spring") || userInput.equalsIgnoreCase("s")){
+        // use equals (case-sensitive) to show usage of String.equals
+        if (userInput.equals("spring") || userInput.equals("s")){
+          // check for a trap at the player's current location
+          if (game.isTrap(0, 0)){
+            int delta = game.springTrap(0, 0); // returns positive or negative score
+            score += delta;
+            System.out.println("You tried to spring a trap. Score change: " + delta + " Total: " + score);
+          }
+          else{
+            System.out.println("No trap here to spring. Penalty applied.");
+            score -= 2; // small manual penalty
+            printScore(score);
+          }
+        }
+      }
+      // show current status: score, steps, and location flags
+      else if (userInput.equals("status") || userInput.equalsIgnoreCase("look")){
+        // call non-static method that returns a value
+        int steps = game.getSteps();
+        System.out.println("Status -- Score: " + score + " Steps: " + steps);
+        System.out.println("Has left start? " + game.hasLeftStart() + " At start? " + game.isAtStart());
+      }
+      // wait gives a small bonus if player has left start, otherwise a small penalty
+      else if (userInput.equalsIgnoreCase("wait") || userInput.equalsIgnoreCase("w")){
+        // compound boolean expression: only award if player has left start AND not at start
+        if (game.hasLeftStart() && !game.isAtStart()){
+          score++; // use increment operator
+          System.out.println("You wait and observe. Patience rewarded! Score incremented.");
+          printScore(score);
+        }
+        else{
+          System.out.println("Waiting here does nothing. You lose a point.");
+          score--;
+          printScore(score);
+        }
+      }
+      else if (userInput.equalsIgnoreCase("quit")|| userInput.equalsIgnoreCase("q")){
+        play = false;
+      }
+      else if (userInput.equalsIgnoreCase("replay")){
+        score += game.replay();
+      }
+      else if (userInput.equalsIgnoreCase("help")|| userInput.equalsIgnoreCase("?")){
+        System.out.println("Valid commands are: up key, down key, right key, left key, space bar, right, left, up, down, r, l, u, d, jump, jr, jumpleft, jl, jumpup, ju, jumpdown, jd, pickup, p, quit, q, replay, help");
+      }
+      else {
+        System.out.println("Invalid command. Type 'help' or '?' for a list of valid commands.");
+        score--;
+        printScore(score);
+      }
+
+      if (moved && game.isTrap(0, 0)){
+        score += game.springTrap(0, 0);
+        System.out.println("You sprung a trap! Score: " + score);
+      }
+
+      if (game.reachedWinSquare())
+      {
+        wonByWinSquare = true;
+        play = false;
+        System.out.println("good job");
+        System.out.println("score=" + score);
+        game.closeGame();
+      }
+      /* TODO: get all the commands working */
+	  /* Your code here */
+   
+      px =0;
+      py=0;
+    
+    }
+
+    if (!wonByWinSquare)
+    {
+      score += game.endGame();
+    }
+  
+
+    System.out.println("score=" + score);
+    System.out.println("steps=" + game.getSteps());
+
+
+  }
+}
