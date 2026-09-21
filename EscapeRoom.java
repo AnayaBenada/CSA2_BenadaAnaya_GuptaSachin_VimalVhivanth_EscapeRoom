@@ -73,6 +73,8 @@ public class EscapeRoom
     // set up game
     boolean play = true;
     while (play)
+    // get user input and call game methods to play
+  // arrow keys for movement, space bar for pickup, other commands for other actions
     {
       String userInput = UserInput.getValidInput(validCommands);
       boolean moved = false;
@@ -212,7 +214,7 @@ public class EscapeRoom
       score += game.endGame();
     }
   
-
+// print final score and steps
     System.out.println("score=" + score);
     System.out.println("steps=" + game.getSteps());
 
